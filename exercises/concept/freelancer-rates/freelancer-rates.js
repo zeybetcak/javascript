@@ -25,29 +25,37 @@
  * @param {number} ratePerHour
  * @returns {number} the rate per day
  */
-export function dayRate(ratePerHour) {
-  throw new Error('Implement the dayRate function');
-}
-
-/**
- * Calculates the number of days in a budget, rounded down
- *
- * @param {number} budget: the total budget
- * @param {number} ratePerHour: the rate per hour
- * @returns {number} the number of days
- */
-export function daysInBudget(budget, ratePerHour) {
-  throw new Error('Implement the daysInBudget function');
-}
-
-/**
- * Calculates the discounted rate for large projects, rounded up
- *
- * @param {number} ratePerHour
- * @param {number} numDays: number of days the project spans
- * @param {number} discount: for example 20% written as 0.2
- * @returns {number} the rounded up discounted rate
- */
-export function priceWithMonthlyDiscount(ratePerHour, numDays, discount) {
-  throw new Error('Implement the priceWithMonthlyDiscount function');
-}
+ export function dayRate(ratePerHour) {
+  const DAILY_HOURS = 8;
+    return DAILY_HOURS*ratePerHour;
+  }
+  
+  /**
+   * Calculates the number of days in a budget, rounded down
+   *
+   * @param {number} budget: the total budget
+   * @param {number} ratePerHour: the rate per hour
+   * @returns {number} the number of days
+   */
+  export function daysInBudget(budget, ratePerHour) {
+  const DAILY_HOURS = 8;
+  let daysInBudget = Math.floor(budget/(DAILY_HOURS * ratePerHour));
+  return daysInBudget;
+  }
+  
+  /**
+   * Calculates the discounted rate for large projects, rounded up
+   *
+   * @param {number} ratePerHour
+   * @param {number} numDays: number of days the project spans
+   * @param {number} discount: for example 20% written as 0.2
+   * @returns {number} the rounded up discounted rate
+   */
+   export function priceWithMonthlyDiscount(ratePerHour, numDays, discount) {
+    const ONE_MONTH = 22;
+    const DAILY_HOURS = 8;
+    let discountedMonths = ((Math.floor(numDays/ONE_MONTH)));
+    let discountPrice = discountedMonths * (ratePerHour * DAILY_HOURS * ONE_MONTH) * discount;
+    let rate = (ratePerHour*DAILY_HOURS)*numDays;
+    return Math.ceil(rate-discountPrice);
+  }
